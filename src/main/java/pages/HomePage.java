@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import enums.LeftMenu;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
@@ -34,4 +35,25 @@ public class HomePage {
         searchButton.shouldBe(Condition.visible);
     }
 
+    @Step("Enter \"{keyword}\" in search textbox")
+    public void enterValueInSearchTextBox(String keyword) {
+        searchTextbox.setValue(keyword);
+    }
+
+    @Step("Click on Search button")
+    public void clickOnSearchButton() {
+        searchButton.click();
+    }
+
+    @Step("Get current breadcrumb text")
+    public String getBreadcrumbText() {
+        String breadcrumbText = breadcrumb.getText();
+        return breadcrumbText.replaceAll("\n", " > ");
+    }
+
+    @Step("Select left menu: \"{menu.value}\"")
+    public void selectLeftMenu(LeftMenu menu) {
+        leftMenuLink.setValue(menu.getValue());
+        leftMenuLink.click();
+    }
 }
