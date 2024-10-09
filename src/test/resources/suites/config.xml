@@ -11,10 +11,10 @@
         <protocol>https</protocol>
 
         <!-- title of the document -->
-        <documentTitle>TA Dashboard Automation</documentTitle>
+        <documentTitle>FINAL TEST SELENIUM 2</documentTitle>
 
         <!-- report name - displayed at top-nav -->
-        <reportName>TA Dashboard Automation</reportName>
+        <reportName>FINAL TEST SELENIUM 2</reportName>
 
         <!-- report headline - displayed at top-nav, after reportHead- line -->
         <reportHeadline>Chieu</reportHeadline>

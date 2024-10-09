@@ -1,4 +1,4 @@
-package enums;
+package models;
 
 import lombok.*;
 
@@ -9,6 +9,5 @@ import lombok.*;
 @Builder
 @ToString
 public class Product {
-    private String name;
     private Integer price;
 }

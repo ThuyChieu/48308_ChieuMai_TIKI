@@ -1,47 +1,48 @@
 
-import enums.Product;
+import enums.LeftMenu;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
-import pages.ProductDetailPage;
 import pages.ProductListPage;
+import pages.TatCaBoLocDialog;
 import reports.TestReporter;
-
-import java.util.List;
 
 import static listeners.TestListener.logMethod;
 import static listeners.TestListener.logStep;
 
 
 public class TestCase001 extends TestBase {
-    @Test(description = "Verify the product information loaded correctly")
+    @Test(description = "Verify user can filter search condition for product")
     public void TC001() {
-        String keyword = "Điện thoại";
-        String expectedBreadcum = "Trang chủ >" + " Kết quả tìm kiếm \"Điện thoại\"";
+        String nhaCungCap = "Nhà sách Fahasa";
+        String minPrice = "60.000";
+        String maxPrice = "140.000";
+        String expectedBreadcum = "Trang chủ >" + " Nhà Sách Tiki";
         HomePage homePage = new HomePage();
         ProductListPage productListPage = new ProductListPage();
-        ProductDetailPage productDetailPage = new ProductDetailPage();
+        TatCaBoLocDialog tatCaBoLocDialog = new TatCaBoLocDialog();
 
-        logStep = TestReporter.logStepInfo(logMethod, "Step #1: Navigate to " +
-                "'TIKI' website");
+        logStep = TestReporter.logStepInfo(logMethod, "Step #1: Navigate to 'TIKI' website");
         homePage.closePopupAdvertisement();
-        homePage.isSearchTextboxDisplayed();
-        homePage.isSearchButtonDisplayed();
 
-        logStep = TestReporter.logStepInfo(logMethod, "Step #2: On home page, enter value in 'Bạn tìm gì hôm "
-                + "nay' textbox ");
-        homePage.enterValueInSearchTextBox(keyword);
-
-        logStep = TestReporter.logStepInfo(logMethod, "Step #3: Click 'Tìm kiếm' button");
-        homePage.clickOnSearchButton();
+        logStep = TestReporter.logStepInfo(logMethod, "Step #2:  Select left menu ");
+        homePage.selectLeftMenu(LeftMenu.NHA_SACH_TIKI);
         Assert.assertEquals(homePage.getBreadcrumbText(), expectedBreadcum);
 
-        logStep = TestReporter.logStepInfo(logMethod, "Step #4: Select any item from result grid");
+        logStep = TestReporter.logStepInfo(logMethod, "Step #3: Click on Tất cả button under Tất cả " +
+                "sản phẩm section");
+        productListPage.clickOnSortItem();
+        tatCaBoLocDialog.isTatCaBoLocDialogDisplayed();
 
-        int index = productListPage.getRandomProductIndex();
-        Product productInfo = productListPage.getProductInfo(index);
-        productListPage.clickOnProductItem(index);
+        logStep = TestReporter.logStepInfo(logMethod, "Step #4: Check on Nhà cung cấp 'Nhà sách Fahasa' " +
+                "checkbox");
+        tatCaBoLocDialog.checkOnNhaCungCapCkb(nhaCungCap);
 
-        Assert.assertEquals(productDetailPage.getProductDetailInfo(), productInfo);
+        logStep = TestReporter.logStepInfo(logMethod, "Step #5:  Enter price range, then select Xem Kết " +
+                "quả button");
+        tatCaBoLocDialog.inputPriceRange(minPrice, maxPrice);
+        tatCaBoLocDialog.clickXemKetQuaButton();
+        productListPage.nhaSachFahasaHighlighted();
+        productListPage.allProductPriceInSuitableRange(minPrice, maxPrice);
     }
 }
