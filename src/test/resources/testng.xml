@@ -12,7 +12,7 @@
         <parameter name="headless" value="false"/>
         <classes>
             <class name="TestCase001"/>
-            <!--            <class name="TestCase002"/>-->
+            <class name="TestCase002"/>
         </classes>
     </test>
 </suite>
