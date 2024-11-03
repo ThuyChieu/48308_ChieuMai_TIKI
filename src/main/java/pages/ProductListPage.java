@@ -34,18 +34,14 @@ public class ProductListPage {
     }
 
 
-    @Step("All product prices is higher than min price and lower than max price")
+    @Step("All product prices are higher than min price and lower than max price")
     public void allProductPriceInSuitableRange(String minPrice, String maxPrice) {
-        List<Product> productList = new ArrayList<>();
+        int reformatMinPrice = NumberHelper.parseCurrencyToInt(minPrice);
+        int reformatMaxPrice = NumberHelper.parseCurrencyToInt(maxPrice);
         for (int index = 0; index < getProductCount(); index++) {
             String price = productPriceList.get(index).getText();
             int reformatPrice = NumberHelper.parseCurrencyToInt(price);
-            int reformatMinPrice = NumberHelper.parseCurrencyToInt(minPrice);
-            int reformatMaxPrice = NumberHelper.parseCurrencyToInt(maxPrice);
-
-            if (reformatPrice >= reformatMinPrice && reformatPrice <= reformatMaxPrice) {
-                productList.add(Product.builder().price(reformatPrice).build());
-            } else {
+            if (reformatPrice < reformatMinPrice || reformatPrice > reformatMaxPrice) {
                 System.out.println("Khoảng giá không hợp lệ");
             }
         }
