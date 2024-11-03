@@ -41,7 +41,6 @@ public class ProductListPage {
         for (int index = 0; index < getProductCount(); index++) {
             String price = productPriceList.get(index).getText();
             int reformatPrice = NumberHelper.parseCurrencyToInt(price);
-
             if (reformatPrice < reformatMinPrice || reformatPrice > reformatMaxPrice) {
                 System.out.println("Khoảng giá không hợp lệ");
             }
